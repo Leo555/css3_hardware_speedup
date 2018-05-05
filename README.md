@@ -2,7 +2,7 @@
 
 ## CSS3 硬件加速简介
 
-上一篇文章学习了重绘和回流对页面性能的影响，是从比较宏观的角度去优化 Web 性能，本篇文章从每一帧的微观角度进行分析，来学习 CSS3 硬件加速的知识。
+[Web 性能优化-页面重绘和回流（重排）](https://lz5z.com/Web%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81/)学习了重绘和回流对页面性能的影响，是从比较宏观的角度去优化 Web 性能，本篇文章从每一帧的微观角度进行分析，来学习 CSS3 硬件加速的知识。
 
 CSS3 硬件加速又叫做 GPU 加速，是利用 GPU 进行渲染，减少 CPU 操作的一种优化方案。由于 GPU 中的 transform 等 CSS 属性不会触发 repaint，所以能大大提高网页的性能。
 
@@ -17,7 +17,7 @@ CSS3 硬件加速又叫做 GPU 加速，是利用 GPU 进行渲染，减少 CPU 
 
 之前学习 flash 的时候，就知道动画是由一帧一帧的图片组成，在浏览器中也是如此。我们首先看一下，浏览器每一帧都做了什么。
 
-<img src="/assets/img/css3_gpu_speedup.png" alt="css3_gpu_speedup" style="max-width: 680px">
+<img src="https://lz5z.com/assets/img/css3_gpu_speedup.png" alt="css3_gpu_speedup" style="max-width: 680px">
 
 >1. JavaScript：JavaScript 实现动画效果，DOM 元素操作等。
 >2. Style（计算样式）：确定每个 DOM 元素应该应用什么 CSS 规则。
@@ -38,7 +38,7 @@ render tree -> 渲染元素 -> 图层 -> GPU 渲染 -> 浏览器复合图层 -> 
 
 在文章开始给出的[例子](https://lz5z.com/css3_hardware_speedup/)中，我们也可以开启 Layer borders，可以观察到，使用 `transform: translate` 动画的元素，外围有一个黄色的边框，可知其为复合层。
 
-<img src="/assets/img/css3_gpu_lauer_borders.png" alt="css3_gpu_lauer_borders">
+<img src="https://lz5z.com/assets/img/css3_gpu_lauer_borders.png" alt="css3_gpu_lauer_borders">
 
 在 GPU 渲染的过程中，一些元素会因为符合了某些规则，而被提升为独立的层（黄色边框部分），一旦独立出来，就不会影响其它 DOM 的布局，所以我们可以利用这些规则，将经常变换的 DOM 主动提升到独立的层，那么在浏览器的一帧运行中，就可以减少 Layout 和 Paint 的时间了。
 
